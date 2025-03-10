@@ -1,0 +1,65 @@
+.container {
+    position: relative;
+    align-self: flex-start;
+
+    &.open {
+
+        .opener {
+            background-color: var(--primary);
+            color: var(--background);
+            z-index: 2;
+
+            > span {
+                transform: translate(-50%, -50%) rotate(45deg);
+    
+                &:last-child {
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+            }
+        }
+
+        .popup {
+            z-index: 2;
+            opacity: 1;
+            pointer-events: initial;
+            transform: initial;
+        }
+    }
+
+    &:not(.open) {
+        .popup * {
+            pointer-events: none !important; /* TODO: improve */
+        }
+    }
+
+}
+
+.opener{
+    position: relative;
+
+    > span {
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 0.5s;
+    }
+
+}
+
+.popup {
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: translateY(10px);
+    position: absolute;
+    pointer-events: none;
+}
+
+.blocker {
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}

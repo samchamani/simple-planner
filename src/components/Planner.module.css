@@ -1,0 +1,62 @@
+.calendar, .weekdays {
+    padding: 10px;
+    display: grid;
+    min-width: 1400px;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    @media (max-width: 400px) {
+        grid-template-columns: repeat(7, 90vw);
+    }
+}
+.toolbar {
+    padding: 10px 10px 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.weekdays {
+    top: 58px;
+
+    @media (max-width: 400px) {
+        width: max-content;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        background: linear-gradient(var(--background), transparent);
+        height: 10px;
+    }
+}
+
+.toolbar, .weekdays {
+    position: sticky;
+    z-index: 1;
+    background: var(--background);
+}
+
+.weekday {
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    line-height: 16px;
+
+}
+
+.toolbar{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    h1 {
+        flex: 1
+    }
+    > .cta {
+        display: flex;
+        gap: 5px;
+    }
+}

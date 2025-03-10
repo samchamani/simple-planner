@@ -1,0 +1,12 @@
+.textarea {
+    background: initial;
+    font-family: var(--font);
+    display: flex;
+    resize: none;
+    overflow: hidden;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
