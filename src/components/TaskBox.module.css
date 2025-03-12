@@ -41,11 +41,6 @@
         box-shadow: -3px 10px 8px 0px var(--shadow);
         transform: rotate(5deg);
         z-index: 1;
-        user-select: none;
-
-        * {
-            user-select: none;
-        }
     }
 
     &:hover {
@@ -72,7 +67,8 @@
         
         &.done:not(:focus) {
             text-decoration: line-through;
-            color: var(--disabled-foreground)
+            color: var(--disabled-foreground);
+            mix-blend-mode: multiply;
         }
 
     }
@@ -80,7 +76,7 @@
 }
 
 .subtasks {
-    margin-left: 25px;
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;

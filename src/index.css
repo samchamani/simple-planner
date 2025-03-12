@@ -13,6 +13,34 @@
   overflow-x: hidden;
 }
 
+/* ----------------------------- RESPONSIVENESS ----------------------------- */
+:root {
+  --start-dialog-width: initial;
+  --planner-grid-template-columns: repeat(7, minmax(250px, 1fr));
+  --planner-display: initial;
+  --planner-top: 58px;
+}
+
+/* phone */
+@media (max-width: 400px) {
+  :root { 
+    --start-dialog-width: 100%;
+    --planner-grid-template-columns: repeat(7, 80vw);
+    --planner-display: none;
+    --planner-top: 46px
+  }
+
+  h1 {
+    font-size: 1.5rem
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ----------------------------------------------------------------------- */
+
 body {
   width: 100vw;
   overflow-x: hidden;
@@ -110,6 +138,10 @@ input {
       border: none;
       background-color: currentColor;
     }
+  }
+
+  &[type="date"] {
+    appearance: initial ;
   }
 }
 

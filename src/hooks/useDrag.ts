@@ -45,6 +45,7 @@ export function useDrag<T extends HTMLElement>(
   );
 
   const handleGlobalPointerMove = useCallback((event: PointerEvent) => {
+    event.preventDefault();
     setClient({ x: event.clientX, y: event.clientY });
   }, []);
 

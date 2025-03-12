@@ -5,6 +5,7 @@
     resize: none;
     overflow: hidden;
     border: none;
+    color: currentColor;
 
     &:focus {
         outline: none;

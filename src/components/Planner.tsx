@@ -111,14 +111,14 @@ export const Planner = () => {
         <h1>{plan.title}</h1>
         <button className={classnames(styles.cta)} onClick={save}>
           <Icon icon="download" />
-          {"Save as file"}
+          <span>{"Save as file"}</span>
         </button>
         <button
           className={classnames("danger", styles.cta)}
           onClick={() => updatePlan()}
         >
           <Icon icon="close" />
-          {"Close"}
+          <span>{"Close"}</span>
         </button>
       </div>
       <div className={styles.weekdays}>
