@@ -57,6 +57,20 @@ export function useDrag<T extends HTMLElement>(
   useLayoutEffect(() => {
     if (!isDragging) return;
     const { x, y } = offset.current;
+
+    const { innerHeight, innerWidth } = window;
+    const rootDiv = document.getElementById("root")!;
+    const scrollThreshold = 20;
+    const scrollSpeed = 10;
+    if (client.x >= innerWidth - scrollThreshold)
+      rootDiv.scrollBy({ left: scrollSpeed, behavior: "smooth" });
+    if (client.x <= scrollThreshold)
+      rootDiv.scrollBy({ left: -scrollSpeed, behavior: "smooth" });
+    if (client.y >= innerHeight - scrollThreshold)
+      rootDiv.scrollBy({ top: scrollSpeed, behavior: "smooth" });
+    if (client.y <= innerWidth - scrollThreshold)
+      rootDiv.scrollBy({ top: -scrollSpeed, behavior: "smooth" });
+
     const newPos = { x: client.x - x, y: client.y - y };
     setPos(() => newPos);
     ref.current &&
@@ -69,7 +83,10 @@ export function useDrag<T extends HTMLElement>(
   }, [client]);
 
   useLayoutEffect(() => {
-    if (isDragging) return;
+    if (isDragging) {
+      setGlobalDragStyles(true);
+      return;
+    }
     const newPos = {
       x: client.x - offset.current.x,
       y: client.y - offset.current.y,
@@ -82,7 +99,7 @@ export function useDrag<T extends HTMLElement>(
         pos: newPos,
         size: size.current,
       });
-
+    setGlobalDragStyles(false);
     window.removeEventListener("pointermove", handleGlobalPointerMove);
     window.removeEventListener("pointerup", handleGlobalPointerUp);
   }, [isDragging]);
@@ -104,4 +121,15 @@ export function useDrag<T extends HTMLElement>(
       onPointerDown,
     },
   };
+}
+
+function setGlobalDragStyles(isDragging: boolean) {
+  document.documentElement.style.setProperty(
+    "--disable-on-drag",
+    isDragging ? "none" : "initial"
+  );
+  document.documentElement.style.setProperty(
+    "--scroll-on-drag",
+    isDragging ? "hidden" : "auto"
+  );
 }

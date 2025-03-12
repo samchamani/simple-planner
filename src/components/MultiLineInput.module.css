@@ -10,4 +10,8 @@
     &:focus {
         outline: none;
     }
+
+    &::placeholder {
+        mix-blend-mode: multiply;
+    }
 }

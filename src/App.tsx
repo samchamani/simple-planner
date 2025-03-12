@@ -15,6 +15,8 @@ export const CSS_VARIABLES: Record<string, string> = {
   shadow: "rgba(69, 69, 69, 0.6)", //#45454599
   "disabled-foreground": "#b1b1b1",
   disabled: "#dfdfdf",
+  "disable-on-drag": "initial",
+  "scroll-on-drag": "auto",
 };
 
 function App() {

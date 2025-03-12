@@ -95,6 +95,7 @@ export const TypeSelector = ({ forTaskId }: Props) => {
           <input
             type="color"
             value={background}
+            style={{ background }}
             onChange={(e) => setBackground(e.target.value)}
           />
         </label>
@@ -102,7 +103,7 @@ export const TypeSelector = ({ forTaskId }: Props) => {
           {"Font"}
           <input
             className={styles.fontselector}
-            style={{ color: font }}
+            style={{ color: font, background }}
             type="color"
             value={background}
             onChange={(e) => setFont(e.target.value)}
