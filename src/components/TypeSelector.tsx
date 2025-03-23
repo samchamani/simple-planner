@@ -100,7 +100,7 @@ export const TypeSelector = ({ forTaskId }: Props) => {
           />
         </label>
         <label>
-          {"Font"}
+          {"Font color"}
           <input
             className={styles.fontselector}
             style={{ color: font, background }}
