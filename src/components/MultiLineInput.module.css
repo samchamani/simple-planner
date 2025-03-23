@@ -12,6 +12,7 @@
     }
 
     &::placeholder {
-        mix-blend-mode: multiply;
+        color: currentColor;
+        opacity: 0.5;
     }
 }

@@ -67,8 +67,8 @@
         
         &.done:not(:focus) {
             text-decoration: line-through;
-            color: var(--disabled-foreground);
-            mix-blend-mode: multiply;
+            color: currentColor;
+            opacity: 0.5;
         }
 
     }

@@ -1,0 +1,45 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Clone private dependency and build it
+        run: |
+          cd ..
+          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/samchamani/frontin.git frontin
+          cd frontin
+          npm install
+          npm run build
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_pk
+          chmod 600 ~/.ssh/id_pk
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy via rsync over SSH
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_pk" dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/simple-planner/
