@@ -43,16 +43,17 @@
 
 body {
   padding-top: env(safe-area-inset-top, 0);
-  width: 100vw;
-  overflow: hidden;
+  width: 100%;
+  overflow: var(--scroll-on-drag);;
   height: 100vh;
   height: 100svh;
+
 }
 
 #root {
-  width: 100%;
+  width: min-content;
   height: 100%;
-  overflow: var(--scroll-on-drag);
+  /* overflow: var(--scroll-on-drag); */
 }
 
 * {
