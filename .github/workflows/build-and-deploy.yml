@@ -32,14 +32,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Setup SSH
+      - name: Deploy to Hetzner
         run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_pk
-          chmod 600 ~/.ssh/id_pk
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
-      - name: Deploy via rsync over SSH
-        run: |
-          rsync -avz --delete -e "ssh -i ~/.ssh/id_pk" dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/simple-planner/
+          echo "${{ secrets.SFTP_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+          lftp -e "mirror -R --verbose --delete ./dist /public_html/simple-planner; bye" -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}
