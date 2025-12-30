@@ -73,6 +73,7 @@ export const TaskBox = ({ id, data, onDrop, onDrag, ...props }: Props) => {
   };
 
   const handleAddSubTask = () => {
+    setIsPopupOpen(false);
     const newSub: Task["subtasks"][number] = {
       title: "",
       isDone: false,
@@ -120,6 +121,10 @@ export const TaskBox = ({ id, data, onDrop, onDrag, ...props }: Props) => {
           className={styles.popup}
         >
           <TypeSelector forTaskId={data.id} />
+          <button onClick={() => handleAddSubTask()}>
+            <Icon icon="add" />
+            {"Add sub task"}
+          </button>
           <button className={"danger"} onClick={() => handleDelete()}>
             <Icon icon="delete" />
             {"Delete task"}
@@ -153,9 +158,6 @@ export const TaskBox = ({ id, data, onDrop, onDrag, ...props }: Props) => {
           </div>
         ))}
       </div>
-      <button className="icon-button" onClick={handleAddSubTask}>
-        <Icon icon={"add"} />
-      </button>
       {data.type !== undefined && (
         <div
           className={styles.typelabel}
@@ -164,7 +166,7 @@ export const TaskBox = ({ id, data, onDrop, onDrag, ...props }: Props) => {
             backgroundColor: plan.types[data.type].background,
             border: `1px solid ${plan.types[data.type].font}`,
           }}
-        >{`[${plan.types[data.type].name}]`}</div>
+        >{`${plan.types[data.type].name}`}</div>
       )}
     </div>
   );
